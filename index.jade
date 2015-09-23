@@ -18,6 +18,13 @@ html(lang="en")
     script(type="text/javascript",src="bluebird.min.js")
   body(ng-app="main",ng-controller="main")
     #root
-      .item(ng-repeat="item in data.list")
-        a(ng-attr-href="{{item[1]}}") {{item[0]}}
-        .content {{item[2] || '等待中..'}}
+      .row
+        .col-sm-4
+          .item(ng-repeat="item in data.pfp")
+            a(ng-attr-href="{{item[1]}}") {{item[0]}}
+            .content {{item[2] || '等待中..'}}
+        .col-sm-4
+          .item(ng-repeat="item in data.dpp")
+            a(ng-attr-href="{{item[1]}}") {{item[0]}}
+            .content {{item[2] || '等待中..'}}
+        .col-sm-4
