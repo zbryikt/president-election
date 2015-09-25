@@ -20,11 +20,14 @@ html(lang="en")
     #root
       .row
         .col-sm-4
-          .item(ng-repeat="item in data.pfp")
+          .item(ng-repeat="item in data.pfp",ng-class="{'active':item[2]}")
             a(ng-attr-href="{{item[1]}}") {{item[0]}}
             .content {{item[2] || '等待中..'}}
         .col-sm-4
-          .item(ng-repeat="item in data.dpp")
+          .item(ng-repeat="item in data.dpp",ng-class="{'active':item[2]}")
             a(ng-attr-href="{{item[1]}}") {{item[0]}}
             .content {{item[2] || '等待中..'}}
         .col-sm-4
+          .item(ng-repeat="item in data.kmt",ng-class="{'active':item[2]}")
+            a(ng-attr-href="{{item[1]}}") {{item[0]}}
+            .content {{item[2] || '等待中..'}}

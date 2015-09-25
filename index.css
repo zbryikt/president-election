@@ -16,12 +16,18 @@ body {
   padding: 10px;
   border: 1px solid #999;
 }
+.item a {
+  color: #ccc;
+}
+.item.active a {
+  color: #090;
+}
 .content {
   margin-left: 20px;
   white-space: pre-wrap;
   display: none;
 }
-.item:hover .content {
+.item .content {
   display: block;
   height: 200px;
   overflow: scroll;

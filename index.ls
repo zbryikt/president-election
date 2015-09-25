@@ -2,6 +2,7 @@ angular.module \main, <[]>
   ..controller \main, <[$scope $http $timeout $interval]> ++ ($scope, $http, $timeout, $interval) ->
     page = 1
     $scope.data = do
+      kmt: []
       dpp: []
       pfp: []
     $scope.fetch = do
@@ -11,6 +12,33 @@ angular.module \main, <[]>
           $scope.fetch[des].handler = $timeout (-> $scope.fetch[des].detail!), 0
         done: (des) -> $scope.fetch[des].handler = null
 
+      kmt: do
+        handler: null
+        detail: ->
+          item = $scope.data.kmt.filter(->!it.2).0
+          if !item => return $scope.fetch.detail.done(\kmt)
+          console.log "getting #{item.1} ..."
+          $http do
+            url: "http://crossorigin.me/#{item.1}"
+            method: \GET
+          .success (d) ->
+            content = $(d).find('.post_item .post-body').text!
+            item.push content
+            $scope.fetch.detail.schedule \kmt, true
+          .error (d) ->
+            $scope.fetch.detail.schedule \kmt, true
+        list: ->
+          $http do
+            url: "http://crossorigin.me/http://www.theway.best/search/label/%E6%9C%80%E6%96%B0%E8%A1%8C%E7%A8%8B?max-results=600"
+            method: \GET
+          .success (d) ->
+            items = $(d).find("\.post_item")
+            for item in items
+              script = $(item).find(\script).text!
+              title = /x="(.+?)",/.exec(script).1
+              title = title.replace(/&#.+?;/g, "")
+              url = /y="(.+?)",/.exec(script).1
+              $scope.data.kmt.push [title, url]
       dpp: do
         handler: null
         detail: ->
@@ -86,7 +114,9 @@ angular.module \main, <[]>
             else $scope.fetch.detail.schedule \pfp
     $scope.fetch.pfp.list 1
     $scope.fetch.dpp.list 1
+    $scope.fetch.kmt.list!
     $interval (->
       $scope.fetch.detail.schedule \dpp
       $scope.fetch.detail.schedule \pfp
+      $scope.fetch.detail.schedule \kmt
     ), 1000

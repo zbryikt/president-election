@@ -17,13 +17,17 @@ html,body
   box-shadow: 0 2px 3px rgba(0,0,0,0.2)
   padding: 10px
   border: 1px solid #999
+  a
+    color: #ccc
+  &.active a
+    color: #090
 
 .content
   margin-left: 20px
   white-space: pre-wrap
   display: none
 
-.item:hover
+.item
   .content
     display: block
     height: 200px
