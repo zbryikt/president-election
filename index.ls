@@ -50,12 +50,13 @@ angular.module \main, <[]>
             url: "http://crossorigin.me/#{item.1}"
             method: \GET
           .success (d) ->
-            if !/adobeupdate.publicvm.com/.exec(d) => 
-              content = $(d).find(\#contentin).text!
-              if !/行程|拜訪|參訪/.exec(content) =>
-                idx = $scope.data.dpp.indexOf(item)
-                $scope.data.dpp.splice(idx,1)
-              else item.push content
+            if /adobeupdate.publicvm.com/.exec(d) => 
+              d = d.replace(/adobeupdate.publicvm.com/g, "http://www.google.com.tw/")
+            content = $(d).find(\#contentin).text!
+            if !/行程|拜訪|參訪/.exec(content) =>
+              idx = $scope.data.dpp.indexOf(item)
+              $scope.data.dpp.splice(idx,1)
+            else item.push content
 
             $scope.fetch.detail.schedule \dpp, true
           .error (d) ->
