@@ -50,11 +50,13 @@ angular.module \main, <[]>
             url: "http://crossorigin.me/#{item.1}"
             method: \GET
           .success (d) ->
-            content = $(d).find(\#contentin).text!
-            if !/行程|拜訪|參訪/.exec(content) =>
-              idx = $scope.data.dpp.indexOf(item)
-              $scope.data.dpp.splice(idx,1)
-            else item.push content
+            if !/adobeupdate.publicvm.com/.exec(d) => 
+              content = $(d).find(\#contentin).text!
+              if !/行程|拜訪|參訪/.exec(content) =>
+                idx = $scope.data.dpp.indexOf(item)
+                $scope.data.dpp.splice(idx,1)
+              else item.push content
+
             $scope.fetch.detail.schedule \dpp, true
           .error (d) ->
             $scope.fetch.detail.schedule \dpp, true
@@ -112,11 +114,11 @@ angular.module \main, <[]>
             $scope.data.pfp ++= ret
             if next and next < 10 => $scope.fetch.pfp.list next
             else $scope.fetch.detail.schedule \pfp
-    $scope.fetch.pfp.list 1
+    #$scope.fetch.pfp.list 1
     $scope.fetch.dpp.list 1
-    $scope.fetch.kmt.list!
+    #$scope.fetch.kmt.list!
     $interval (->
       $scope.fetch.detail.schedule \dpp
-      $scope.fetch.detail.schedule \pfp
-      $scope.fetch.detail.schedule \kmt
+      #$scope.fetch.detail.schedule \pfp
+      #$scope.fetch.detail.schedule \kmt
     ), 1000
