@@ -115,11 +115,11 @@ angular.module \main, <[]>
             $scope.data.pfp ++= ret
             if next and next < 10 => $scope.fetch.pfp.list next
             else $scope.fetch.detail.schedule \pfp
-    #$scope.fetch.pfp.list 1
+    $scope.fetch.pfp.list 1
     $scope.fetch.dpp.list 1
-    #$scope.fetch.kmt.list!
+    $scope.fetch.kmt.list!
     $interval (->
       $scope.fetch.detail.schedule \dpp
-      #$scope.fetch.detail.schedule \pfp
-      #$scope.fetch.detail.schedule \kmt
+      $scope.fetch.detail.schedule \pfp
+      $scope.fetch.detail.schedule \kmt
     ), 1000
